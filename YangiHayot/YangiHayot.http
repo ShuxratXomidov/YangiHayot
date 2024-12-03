@@ -1,0 +1,6 @@
+@YangiHayot_HostAddress = http://localhost:5210
+
+GET {{YangiHayot_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
