@@ -26,7 +26,7 @@ namespace YangiHayot.Services
 
         public List<Role> GetAll()
         {
-            var roles = dbContext.Roles.ToList();
+            List<Role> roles = dbContext.Roles.ToList();
             return roles;
         }
 
@@ -38,7 +38,7 @@ namespace YangiHayot.Services
         }
         public Role GetByName(string name)
         {
-            Role role = dbContext.Roles.SingleOrDefault(r => r.Name == name);
+            var role = dbContext.Roles.FirstOrDefault(r => r.Name == name);
 
             return role;
         }
@@ -52,14 +52,10 @@ namespace YangiHayot.Services
 
             return role;
         }
-        public Role Delete(int id)
-        {
-            var role = dbContext.Roles.FirstOrDefault(r => r.Id == id);
-            
+        public void Delete(Role role)
+        {   
             dbContext.Roles.Remove(role);
             dbContext.SaveChanges();
-
-            return role;
         }
     }
         

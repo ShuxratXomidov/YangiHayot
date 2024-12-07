@@ -20,17 +20,14 @@ namespace YangiHayot.Controllers
         [Route("")]
         public IActionResult Create(string roleName)
         {
-            Role role = this.roleService.Create(roleName);
-            if(role.Name == roleName)
+            Role role = this.roleService.GetByName(roleName);
+            if (role == null)
             {
-                return BadRequest("Bu ma`lumot bazada bor!");
+                Role newrole = this.roleService.Create(roleName);
+                return Ok(newrole);
             }
-            else
-            {
-                Role roleCreate = this.roleService.Create(roleName);
 
-                return Ok(roleCreate);
-            }   
+            return BadRequest("Bu bazada bor!");
         }
 
         [HttpGet]
@@ -60,25 +57,26 @@ namespace YangiHayot.Controllers
         [Route("{id}")]
         public IActionResult Update(int id, string roleName)
         {
-            Role role = this.roleService.Update(id, roleName);
-            if (role is null || role.Name == roleName)
+            Role role = this.roleService.GetById(id);
+            if(role is null)
             {
-                return BadRequest("Oldin ham yuklangan");
+                return NotFound("Bazadan topilmadi!");
             }
-            else
-            {
-                var updateRole = this.roleService.Update(id, roleName);
 
-                return Ok(updateRole);
-            }
-            
+            this.roleService.Update(id, roleName);
+            return Ok(role);
         }
 
         [HttpDelete]
         [Route("{id}")]
         public IActionResult Delete(int id)
         {
-            this.roleService.Delete(id);
+            Role role = this.roleService.GetById(id);
+            if(role is not null)
+            {
+                this.roleService.Delete(role);
+            }
+
             return NoContent();
         }
     }
