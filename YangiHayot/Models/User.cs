@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using YangiHayot.Services;
 
 namespace YangiHayot.Models
 {
@@ -10,8 +11,8 @@ namespace YangiHayot.Models
         public string LastName { get; set; }
         public string PhoneNumber { get; set; } 
         public string Email { get; set; } 
-        public string Password { get; set; } 
-        public DateTime CreatedAt { get; set; }
+        public string Password { get; set; }
+        public DateTime CreatedAt { get; set; } 
         public int RoleId { get; set; }
         public Role Role { get; set; }
         

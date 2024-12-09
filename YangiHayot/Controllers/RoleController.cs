@@ -57,14 +57,20 @@ namespace YangiHayot.Controllers
         [Route("{id}")]
         public IActionResult Update(int id, string roleName)
         {
-            Role role = this.roleService.GetById(id);
+            var role = this.roleService.GetById(id);
             if(role is null)
             {
                 return NotFound("Bazadan topilmadi!");
             }
 
-            this.roleService.Update(id, roleName);
-            return Ok(role);
+            var role1 = this.roleService.GetByName(roleName);
+            if(role1 is null)
+            {
+                Role newrole = this.roleService.Update(id, roleName);
+                return Ok(newrole);
+            }
+
+            return BadRequest("Bu malumot bazada bor!");
         }
 
         [HttpDelete]

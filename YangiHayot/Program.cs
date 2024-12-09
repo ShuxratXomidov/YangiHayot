@@ -2,11 +2,13 @@ using Microsoft.EntityFrameworkCore;
 using YangiHayot.Data;
 using YangiHayot.Services;
 using YangiHayot.Models;
+using YangiHayot.Interfaces;
 
 
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 // Add services to the container.
 
