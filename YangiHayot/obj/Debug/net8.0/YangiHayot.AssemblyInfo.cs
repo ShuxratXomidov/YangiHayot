@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("YangiHayot")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b00670ec3377c5ccde1aabdec392a60916289089")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1eb94799b2fb468aaac56c7cceaa9d50860748df")]
 [assembly: System.Reflection.AssemblyProductAttribute("YangiHayot")]
 [assembly: System.Reflection.AssemblyTitleAttribute("YangiHayot")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

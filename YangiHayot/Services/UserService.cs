@@ -12,7 +12,7 @@ namespace YangiHayot.Services
         {
             this.dbContext = dataContext;
         }
-        public User Create(string firstName, string lastName, string phoneNumber, string email, string password, DateTime createdAt, int roleId)
+        public User Create(string firstName, string lastName, string phoneNumber, string email, string password, int roleId)
         {
             User user = new User();
             user.FirstName = firstName;
@@ -20,7 +20,6 @@ namespace YangiHayot.Services
             user.PhoneNumber = phoneNumber;
             user.Email = email;
             user.Password = password;
-            user.CreatedAt = createdAt;
             user.RoleId = roleId;
 
             dbContext.Users.Add(user);

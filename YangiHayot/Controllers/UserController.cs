@@ -17,7 +17,7 @@ namespace YangiHayot.Controllers
 
         [HttpPost]
         [Route("")]
-        public IActionResult Create(string firstName, string lastName, string phoneNumber, string email, string password, DateTime createdAt, int roleId)
+        public IActionResult Create(string firstName, string lastName, string phoneNumber, string email, string password, int roleId)
         {
             User userNumber = this.userService.GetByPhoneNumber(phoneNumber);
             if (userNumber is not null)
@@ -37,7 +37,7 @@ namespace YangiHayot.Controllers
                 return BadRequest("Bu parol orqali foydalanuvchi bazada bor!");
             }
 
-            User user = this.userService.Create(firstName, lastName, phoneNumber, email, password, createdAt, roleId);
+            User user = this.userService.Create(firstName, lastName, phoneNumber, email, password, roleId);
             return Ok(user);
         }
 
