@@ -2,6 +2,7 @@
 using YangiHayot.Data;
 using YangiHayot.Interfaces;
 using YangiHayot.Models;
+using YangiHayot.Requests;
 
 namespace YangiHayot.Services
 {
@@ -12,15 +13,15 @@ namespace YangiHayot.Services
         {
             this.dbContext = dataContext;
         }
-        public User Create(string firstName, string lastName, string phoneNumber, string email, string password, int roleId)
+        public User Create(UserRequest newUser)
         {
             User user = new User();
-            user.FirstName = firstName;
-            user.LastName = lastName;
-            user.PhoneNumber = phoneNumber;
-            user.Email = email;
-            user.Password = password;
-            user.RoleId = roleId;
+            user.FirstName = newUser.FirstName;
+            user.LastName = newUser.LastName; ;
+            user.PhoneNumber = newUser.PhoneNumber;
+            user.Email = newUser.Email;
+            user.Password = newUser.Password;
+            user.RoleId = newUser.RoleId;
 
             dbContext.Users.Add(user);
             dbContext.SaveChanges();
@@ -29,7 +30,7 @@ namespace YangiHayot.Services
         }
         public List<User> GetAll()
         {
-            List<User> users = dbContext.Users.ToList();
+            List<User> users = dbContext.Users.OrderBy(u =>u.Id).ToList();
             return users;
         }
         public User GetById(int id)

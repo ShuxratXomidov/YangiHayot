@@ -2,6 +2,9 @@
 using YangiHayot.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http.HttpResults;
+using YangiHayot.Requests;
+using YangiHayot.Responces;
+using YangiHayot.Services;
 
 namespace YangiHayot.Controllers
 {
@@ -10,35 +13,43 @@ namespace YangiHayot.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService userService;
-        public UserController(IUserService userService)
+        private readonly IRoleService roleService;
+        public UserController(IUserService userService, IRoleService roleService)
         {
             this.userService = userService;
+            this.roleService = roleService;
         }
 
         [HttpPost]
         [Route("")]
-        public IActionResult Create(string firstName, string lastName, string phoneNumber, string email, string password, int roleId)
+        public IActionResult Create([FromBody] UserRequest request)
         {
-            User userNumber = this.userService.GetByPhoneNumber(phoneNumber);
+            User userNumber = this.userService.GetByPhoneNumber(request.PhoneNumber);
             if (userNumber is not null)
             {
                 return BadRequest("Bu telifon raqamli foydalanuvchi bazada bor!");
             }
 
-            User userEmail = this.userService.GetByEmail(email);
+            User userEmail = this.userService.GetByEmail(request.Email);
             if (userEmail is not null)
             {
                 return BadRequest("Bu pochta orqali foydalanuvchi bazada bor!");
             }
 
-            User userPassword = this.userService.GetByPassword(password);
-            if (userPassword is not null)
-            {
-                return BadRequest("Bu parol orqali foydalanuvchi bazada bor!");
-            }
+            User user = this.userService.Create(request);
 
-            User user = this.userService.Create(firstName, lastName, phoneNumber, email, password, roleId);
-            return Ok(user);
+            var role = this.roleService.GetById(user.Id);
+
+            UserResponce responce = new UserResponce()
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                RoleId = user.RoleId,
+                RoleName = role.Name
+            };
+
+            return Ok(responce);
         }
 
         [HttpGet]

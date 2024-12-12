@@ -26,7 +26,7 @@ namespace YangiHayot.Services
 
         public List<Role> GetAll()
         {
-            List<Role> roles = dbContext.Roles.ToList();
+            List<Role> roles = dbContext.Roles.OrderBy(r => r.Id).ToList();
             return roles;
         }
 

@@ -1,4 +1,5 @@
 ﻿using YangiHayot.Models;
+using YangiHayot.Requests;
 
 namespace YangiHayot.Interfaces
 {
@@ -9,7 +10,7 @@ namespace YangiHayot.Interfaces
         public User GetByPhoneNumber(string phoneNumber);
         public User GetByEmail(string email);
         public User GetByPassword(string password);
-        public User Create(string firstName, string lastName, string phoneNumber, string email, string password, int roleId);
+        public User Create(UserRequest newUser);
         public User Update(int id, string firstName, string lastName, string phoneNumber, string email, string password, int roleId);
         public void Delete(User user);
     }
