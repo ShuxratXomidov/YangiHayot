@@ -53,15 +53,15 @@ namespace YangiHayot.Services
             var user = dbContext.Users.FirstOrDefault(u => u.Password == password);
             return user;
         }
-        public User Update(int id,string firstName, string lastName, string phoneNumber, string email, string password, int roleId)
+        public User Update(int id, UserRequest newUser)
         {
             var user = dbContext.Users.FirstOrDefault(u => u.Id == id);
-            user.FirstName = firstName;
-            user.LastName = lastName;
-            user.PhoneNumber = phoneNumber;
-            user.Email = email;
-            user.Password = password;
-            user.RoleId = roleId;
+            user.FirstName = newUser.FirstName;
+            user.LastName = newUser.LastName;
+            user.PhoneNumber = newUser.PhoneNumber;
+            user.Email = newUser.Email;
+            user.Password = newUser.Password;
+            user.RoleId = newUser.RoleId;
 
             dbContext.Users.Update(user);
             dbContext.SaveChanges();

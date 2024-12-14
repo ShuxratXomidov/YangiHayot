@@ -1,7 +1,6 @@
 ﻿using YangiHayot.Interfaces;
 using YangiHayot.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http.HttpResults;
 using YangiHayot.Requests;
 using YangiHayot.Responces;
 using YangiHayot.Services;
@@ -38,13 +37,16 @@ namespace YangiHayot.Controllers
 
             User user = this.userService.Create(request);
 
-            var role = this.roleService.GetById(user.Id);
+            var role = this.roleService.GetById(user.RoleId);
 
             UserResponce responce = new UserResponce()
             {
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                PhoneNumber = user.PhoneNumber,
+                Email = user.Email,
+                Password = user.Password,
                 RoleId = user.RoleId,
                 RoleName = role.Name
             };
@@ -76,7 +78,7 @@ namespace YangiHayot.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public IActionResult Update(int id, string firstName, string lastName, string phoneNumber, string email, string password, int roleId)
+        public IActionResult Update(int id, [FromBody] UserRequest request)
         {
             var userId = this.userService.GetById(id);
             if (userId is null)
@@ -84,25 +86,21 @@ namespace YangiHayot.Controllers
                 return NotFound("Bazadan topilmadi!");
             }
 
-            User userPhoneNumber = this.userService.GetByPhoneNumber(phoneNumber);
+            User userPhoneNumber = this.userService.GetByPhoneNumber(request.PhoneNumber);
             if (userPhoneNumber is not null)
             {
                 return BadRequest("Bu telifon raqam bazada bor!");
             }
 
-            User userEmail = this.userService.GetByEmail(email);
+            User userEmail = this.userService.GetByEmail(request.Email);
             if (userEmail is not null)
             {
                 return BadRequest("Bu pochta bazada bor!");
             }
 
-            User userPassword = this.userService.GetByPassword(password);
-            if (userPassword is not null)
-            {
-                return BadRequest("Bu parol bazada bor!");
-            }
+            User userPassword = this.userService.GetByPassword(request.Password);
 
-            User user = this.userService.Update(id, firstName, lastName, phoneNumber, email, password, roleId);
+            User user = this.userService.Update(id, request);
             return Ok(user);
         }
 

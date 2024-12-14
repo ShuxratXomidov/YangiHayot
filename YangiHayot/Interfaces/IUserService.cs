@@ -11,7 +11,7 @@ namespace YangiHayot.Interfaces
         public User GetByEmail(string email);
         public User GetByPassword(string password);
         public User Create(UserRequest newUser);
-        public User Update(int id, string firstName, string lastName, string phoneNumber, string email, string password, int roleId);
+        public User Update(int id, UserRequest request);
         public void Delete(User user);
     }
 }

@@ -9,6 +9,7 @@ using YangiHayot.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IRoleService, RoleService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 // Add services to the container.
 
