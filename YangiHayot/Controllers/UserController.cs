@@ -2,7 +2,7 @@
 using YangiHayot.Models;
 using Microsoft.AspNetCore.Mvc;
 using YangiHayot.Requests;
-using YangiHayot.Responces;
+using YangiHayot.Responses;
 using YangiHayot.Services;
 
 namespace YangiHayot.Controllers
@@ -39,7 +39,7 @@ namespace YangiHayot.Controllers
 
             var role = this.roleService.GetById(user.RoleId);
 
-            UserResponce responce = new UserResponce()
+            UserResponse responce = new UserResponse()
             {
                 Id = user.Id,
                 FirstName = user.FirstName,

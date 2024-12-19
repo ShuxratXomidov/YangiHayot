@@ -6,6 +6,10 @@ namespace YangiHayot.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Required]
+        [MaxLength(15)]
+        [MinLength(2)]
         public string Name { get; set; }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace YangiHayot.Responces
+﻿namespace YangiHayot.Responses
 {
-    public class UserResponce
+    public class UserResponse
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

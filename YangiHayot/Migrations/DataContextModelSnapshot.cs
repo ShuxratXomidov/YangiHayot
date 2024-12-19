@@ -44,8 +44,8 @@ namespace YangiHayot.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<double>("Size")
-                        .HasColumnType("double precision");
+                    b.Property<int>("Size")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

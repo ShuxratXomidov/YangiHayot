@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using YangiHayot.Interfaces;
 using YangiHayot.Requests;
 using YangiHayot.Models;
+using YangiHayot.Responses;
 
 
 namespace YangiHayot.Controllers
@@ -23,13 +24,22 @@ namespace YangiHayot.Controllers
         public IActionResult Create([FromBody] ProductRequest request)
         {
             var product = this.productService.GetByName(request.Name);
-            if (product is null)
+            if (product is not null)
             {
-                var productNew = this.productService.Create(request);
-                return Ok(productNew);
+                return BadRequest("Bu mahsulot bazada bor!");
             }
 
-            return BadRequest("Bu mahsulot bazada bor!");
+            var productNew = this.productService.Create(request);
+
+            ProductResponse response = new ProductResponse();
+            response.Id = productNew.Id;
+            response.Name = productNew.Name;
+            response.Price = productNew.Price;
+            response.Quantity = productNew.Quantity;
+            response.Size = productNew.Size.ToString();
+
+            return Ok(response);
+
         }
 
         [HttpGet]
@@ -37,7 +47,7 @@ namespace YangiHayot.Controllers
         public IActionResult Index()
         {
             List<Product> products = this.productService.GetAll();
-
+      
             return Ok(products);
         }
 
@@ -51,7 +61,14 @@ namespace YangiHayot.Controllers
                 return BadRequest("Bunaqa mahsulot yo'q!");
             }
 
-            return Ok(product);
+            ProductResponse response = new ProductResponse();
+            response.Id = product.Id;
+            response.Name = product.Name;
+            response.Price = product.Price;
+            response.Quantity = product.Quantity;
+            response.Size = product.Size.ToString();
+
+            return Ok(response);
         }
 
         [HttpPut]
@@ -65,14 +82,22 @@ namespace YangiHayot.Controllers
             }
 
             var productName = this.productService.GetByName(request.Name);
-            if(productName is null)
+            if(productName is not null)
             {
-                Product product = this.productService.Update(id, request);
-
-                return Ok(product);
+                return BadRequest("Bu mahsulot bazada bor!");
             }
 
-            return BadRequest("Bu mahsulot bazada bor!");
+            Product product = this.productService.Update(id, request);
+
+            ProductResponse response = new ProductResponse();
+            response.Id = product.Id;
+            response.Name = product.Name;
+            response.Price = product.Price;
+            response.Quantity = product.Quantity;
+            response.Size = product.Size.ToString();
+
+            return Ok(response);
+
         }
 
         [HttpDelete]

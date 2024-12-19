@@ -1,15 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-using YangiHayot.Enums;
-
-namespace YangiHayot.Models
+﻿namespace YangiHayot.Responses
 {
-    public class Product
+    public class ProductResponse
     {
-        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
-        public ProductSizeEnum Size { get; set; }
+        public string Size { get; set; }
         public string Photo { get; set; } = string.Empty;
         public int Quantity { get; set; }
     }
