@@ -17,7 +17,7 @@ namespace YangiHayot.Requests
        [Phone]
        public string PhoneNumber {  get; set; }
 
-       [MaxLength(20)]
+       [MaxLength(25)]
        [EmailAddress]
        public string Email { get; set; }
 

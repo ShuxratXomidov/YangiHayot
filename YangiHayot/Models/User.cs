@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 using YangiHayot.Services;
 
 namespace YangiHayot.Models
@@ -10,11 +11,16 @@ namespace YangiHayot.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; } 
-        public string Email { get; set; } 
-        public string Password { get; set; }
+        public string Email { get; set; }
+
+        [JsonIgnore]
+        public byte[] PasswordHash { get; set; } = new byte[32];
+
+        [JsonIgnore]
+        public byte[] PasswordSalt { get; set; } = new byte[32];
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public int RoleId { get; set; }
-        public Role Role { get; set; }
+        //public Role Role { get; set; }
         
     }
 }

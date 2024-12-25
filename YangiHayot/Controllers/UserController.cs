@@ -39,19 +39,18 @@ namespace YangiHayot.Controllers
 
             var role = this.roleService.GetById(user.RoleId);
 
-            UserResponse responce = new UserResponse()
+            UserResponse response = new UserResponse()
             {
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
                 Email = user.Email,
-                Password = user.Password,
                 RoleId = user.RoleId,
                 RoleName = role.Name
             };
 
-            return Ok(responce);
+            return Ok(response);
         }
 
         [HttpGet]
@@ -98,7 +97,7 @@ namespace YangiHayot.Controllers
                 return BadRequest("Bu pochta bazada bor!");
             }
 
-            User userPassword = this.userService.GetByPassword(request.Password);
+            //User userPassword = this.userService.GetByPassword(request.Password);
 
             User user = this.userService.Update(id, request);
             return Ok(user);
