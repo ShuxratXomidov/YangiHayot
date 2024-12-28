@@ -16,7 +16,14 @@ namespace YangiHayot.Password
 
         public static bool CkeckPassword(string password, byte[] passwordHash, byte[] passwordSalt)
         {
-            return false;
+            byte[] newHashedPassword;
+
+            using (HMACSHA512 hmac = new HMACSHA512(passwordSalt))
+            {
+                newHashedPassword = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+                return passwordHash.SequenceEqual(newHashedPassword);
+            }
         }
     }
 }
