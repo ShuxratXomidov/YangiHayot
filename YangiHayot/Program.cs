@@ -3,6 +3,7 @@ using YangiHayot.Data;
 using YangiHayot.Services;
 using YangiHayot.Models;
 using YangiHayot.Interfaces;
+using System.IO;
 
 
 
@@ -26,6 +27,8 @@ builder.Services.AddDbContext<DataContext>(options =>
 
 
 var app = builder.Build();
+
+app.UseStaticFiles();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

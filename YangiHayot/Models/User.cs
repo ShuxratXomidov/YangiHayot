@@ -20,7 +20,7 @@ namespace YangiHayot.Models
         public byte[] PasswordSalt { get; set; } = new byte[32];
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public int RoleId { get; set; }
-        //public Role Role { get; set; }
-        
+        public Role? Role { get; set; }
+
     }
 }

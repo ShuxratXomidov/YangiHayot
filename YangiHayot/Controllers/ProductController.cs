@@ -21,7 +21,7 @@ namespace YangiHayot.Controllers
 
         [HttpPost]
         [Route("")]
-        public IActionResult Create([FromBody] ProductRequest request)
+        public IActionResult Create([FromForm] ProductRequest request)
         {
             var product = this.productService.GetByName(request.Name);
             if (product is not null)

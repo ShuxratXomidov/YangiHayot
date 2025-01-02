@@ -14,12 +14,13 @@ namespace YangiHayot.Services
         {
             this.dbContext = dataContext;
         }
-        public Product Create([FromBody] ProductRequest request)
+        public Product Create([FromForm] ProductRequest request)
         {
             Product product = new Product();
             product.Name = request.Name;
             product.Price = request.Price;
             product.Size = request.Size;
+            product.Photo = request.Photo.FileName;
             product.Quantity = request.Quantity;
 
             dbContext.Products.Add(product);

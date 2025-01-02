@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using YangiHayot.Requests;
 using YangiHayot.Responses;
 using YangiHayot.Services;
+using YangiHayot.Password;
 
 namespace YangiHayot.Controllers
 {
@@ -97,7 +98,11 @@ namespace YangiHayot.Controllers
                 return BadRequest("Bu pochta bazada bor!");
             }
 
-            //User userPassword = this.userService.GetByPassword(request.Password);
+            bool passwordCheck = PasswordHelper.CkeckPassword(request.Password, userId.PasswordHash, userId.PasswordSalt);
+            if (passwordCheck == true)
+            {
+                return BadRequest("Bu Parolni oldin kiritgansiz! Parolni o`zgartiring!");
+            }
 
             User user = this.userService.Update(id, request);
             return Ok(user);

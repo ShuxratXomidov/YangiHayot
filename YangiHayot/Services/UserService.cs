@@ -52,24 +52,27 @@ namespace YangiHayot.Services
             var user = dbContext.Users.FirstOrDefault(u => u.Email == email);
             return user;
         }
-        public User GetByPasswordHash(byte[] passwordHash)
-        {
-            var user = dbContext.Users.FirstOrDefault(u => u.PasswordHash == passwordHash);
-            return user;
-        }
-        public User GetByPasswordSalt(byte[] passwordSalt)
-        {
-            var user = dbContext.Users.FirstOrDefault(u => u.PasswordSalt == passwordSalt);
-            return user;
-        }
+        //public User GetByPasswordHash(byte[] passwordHash)
+        //{
+        //    var user = dbContext.Users.FirstOrDefault(u => u.PasswordHash == passwordHash);
+        //    return user;
+        //}
+        //public User GetByPasswordSalt(byte[] passwordSalt)
+        //{
+        //    var user = dbContext.Users.FirstOrDefault(u => u.PasswordSalt == passwordSalt);
+        //    return user;
+        //}
         public User Update(int id, UserRequest newUser)
         {
+            PasswordHelper.HashPassword(newUser.Password, out byte[] passwordSalt, out byte[] passwordHash);
+
             var user = dbContext.Users.FirstOrDefault(u => u.Id == id);
             user.FirstName = newUser.FirstName;
             user.LastName = newUser.LastName;
             user.PhoneNumber = newUser.PhoneNumber;
             user.Email = newUser.Email;
-            //user.Password = newUser.Password;
+            user.PasswordSalt = passwordSalt;
+            user.PasswordHash = passwordHash;
             user.RoleId = newUser.RoleId;
 
             dbContext.Users.Update(user);
