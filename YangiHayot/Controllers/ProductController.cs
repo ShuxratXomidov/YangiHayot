@@ -31,12 +31,17 @@ namespace YangiHayot.Controllers
 
             var productNew = this.productService.Create(request);
 
+            FileStream fs = new FileStream("wwwroot/" + request.Photo.FileName, FileMode.Create);
+            request.Photo.CopyTo(fs);
+            fs.Dispose();
+
             ProductResponse response = new ProductResponse();
             response.Id = productNew.Id;
             response.Name = productNew.Name;
             response.Price = productNew.Price;
             response.Quantity = productNew.Quantity;
             response.Size = productNew.Size.ToString();
+            response.Photo = productNew.Photo;
 
             return Ok(response);
 
