@@ -37,7 +37,7 @@ namespace YangiHayot.Services
             List<User> users = dbContext.Users.OrderBy(u =>u.Id).ToList();
             return users;
         }
-        public User GetById(int id)
+        public User? GetById(int id)
         {
            var user = dbContext.Users.FirstOrDefault(u => u.Id == id);
             return user;

@@ -1,0 +1,37 @@
+{
+  "Files": [
+    {
+      "Id": "D:\\Project\\YangiHayot\\YangiHayot\\wwwroot\\7gCM5.jpg",
+      "PackagePath": "staticwebassets\\7gCM5.jpg"
+    },
+    {
+      "Id": "D:\\Project\\YangiHayot\\YangiHayot\\wwwroot\\EURO2022.jpg",
+      "PackagePath": "staticwebassets\\EURO2022.jpg"
+    },
+    {
+      "Id": "D:\\Project\\YangiHayot\\YangiHayot\\wwwroot\\EURO22.jpg",
+      "PackagePath": "staticwebassets\\EURO22.jpg"
+    },
+    {
+      "Id": "D:\\Project\\YangiHayot\\YangiHayot\\wwwroot\\EURO223.jpg",
+      "PackagePath": "staticwebassets\\EURO223.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.YangiHayot.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.YangiHayot.props",
+      "PackagePath": "build\\YangiHayot.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.YangiHayot.props",
+      "PackagePath": "buildMultiTargeting\\YangiHayot.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.YangiHayot.props",
+      "PackagePath": "buildTransitive\\YangiHayot.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

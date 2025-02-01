@@ -6,7 +6,7 @@ namespace YangiHayot.Interfaces
     public interface IUserService
     {
         public List<User> GetAll();
-        public User GetById(int id);
+        public User? GetById(int id);
         public User GetByPhoneNumber(string phoneNumber);
         public User GetByEmail(string email);
         //public User GetByPasswordHash(byte[] passwordHash);

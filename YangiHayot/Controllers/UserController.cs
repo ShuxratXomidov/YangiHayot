@@ -47,6 +47,7 @@ namespace YangiHayot.Controllers
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
                 Email = user.Email,
+                CreatedAt = user.CreatedAt,
                 RoleId = user.RoleId,
                 RoleName = role.Name
             };
@@ -112,7 +113,7 @@ namespace YangiHayot.Controllers
         [Route("{id}")]
         public IActionResult Delete(int id)
         {
-            User user = this.userService.GetById(id);
+            User? user = this.userService.GetById(id);
             if(user is not null)
             {
                 this.userService.Delete(user);
