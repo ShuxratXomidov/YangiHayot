@@ -2,7 +2,7 @@
 
 namespace YangiHayot.Models
 {
-    public class OrderDetial
+    public class OrderDetail
     {
         [Key]
         public int Id { get; set; }

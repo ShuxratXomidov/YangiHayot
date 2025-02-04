@@ -8,7 +8,7 @@ namespace YangiHayot.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-        public double Price { get; set; }
+        public decimal Price { get; set; } // tipini doubledan decimale ga uzgartirdim
         public ProductSizeEnum Size { get; set; }
         public string Photo { get; set; } = string.Empty;
         public int Quantity { get; set; }

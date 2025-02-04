@@ -24,14 +24,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "price",
-        "Type": "System.Decimal",
-        "IsRequired": false
-      },
-      {
-        "Name": "userId",
-        "Type": "System.Int32",
-        "IsRequired": false
+        "Name": "request",
+        "Type": "YangiHayot.Requests.CreateOrderRequest",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
@@ -114,7 +109,7 @@
       },
       {
         "Name": "Price",
-        "Type": "System.Double",
+        "Type": "System.Decimal",
         "IsRequired": false
       },
       {

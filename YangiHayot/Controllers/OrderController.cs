@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using YangiHayot.Interfaces;
 using YangiHayot.Models;
+using YangiHayot.Requests;
 using YangiHayot.Responses;
 
 namespace YangiHayot.Controllers
@@ -12,23 +13,51 @@ namespace YangiHayot.Controllers
     {
         private readonly IOrderService orderService;
         private readonly IUserService userService;
-        public OrderController(IOrderService orderService, IUserService userService)
+        private readonly IOrderDetailService orderDetailService;
+        private readonly IProductService productService;
+        public OrderController(IOrderService orderService, IUserService userService, IOrderDetailService orderDetailService, IProductService productService)
         {
             this.orderService = orderService;
             this.userService = userService;
+            this.orderDetailService  = orderDetailService;
+            this.productService = productService;
         }
 
         [HttpPost]
         [Route("")]
-        public IActionResult Create(decimal price, int userId)
+        public IActionResult Create([FromBody] CreateOrderRequest request)
         {
-            User? user = this.userService.GetById(userId);
+            User? user = this.userService.GetById(request.UserId);
             if (user is null)
             {
-                return BadRequest($"User is not found with id {userId}");
+                return BadRequest($"User is not found with id {request.UserId}");
             }
 
-            Order order = this.orderService.Create(price, userId);
+            decimal totalSum = 0;
+
+
+            for (int i = 0; i < request.ProductIds.Length; i++)
+            {
+                Product? product = this.productService.GetById(request.ProductIds[i]);
+
+                if (product is null)
+                {
+                    return BadRequest($"Product is not fount with is {product}");
+                }
+
+                totalSum = product.Price + totalSum;
+            }
+
+            Order order = this.orderService.Create(totalSum, request.UserId);
+
+            foreach (int productId in request.ProductIds)
+            {
+                Product? product = this.productService.GetById(productId);
+
+                this.orderDetailService.Create(order, product);
+            }
+
+            
 
             OrderResponse response = new OrderResponse()
             {
@@ -38,7 +67,7 @@ namespace YangiHayot.Controllers
                 UserId = order.UserId,
             };
 
-            return Ok(response);
+            return Ok(response);  
         }
 
         [HttpGet]
