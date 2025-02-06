@@ -27,10 +27,20 @@ namespace YangiHayot.Services
         {
             return dbContext.OrderDetails.Where(orderDetail => orderDetail.OrderId == order.Id).ToList();
         }
-        public void Update(decimal price, OrderDetail orderDetail)
+        public void Update(decimal price, OrderDetail orderDetail,Product product)
         {
             orderDetail.Price = price;
+            if(orderDetail.ProductId != product.Id)
+            {
+                orderDetail.Price = product.Price;
+                orderDetail.ProductId = product.Id;
+            }
+            
             dbContext.SaveChanges();
+        }
+        public OrderDetail? GetById(int id)
+        {
+            return dbContext.OrderDetails.FirstOrDefault(od => od.Id == id);
         }
     }
 }

@@ -5,6 +5,7 @@ namespace YangiHayot.Interfaces
     {
         public List<OrderDetail> GetOrderDetails(Order order);
         public void Create(Order order, Product product);
-        public void Update(decimal price, OrderDetail orderDetail);
+        public void Update(decimal price, OrderDetail orderDetail, Product product);
+        OrderDetail? GetById(int id);
     }
 }
