@@ -37,25 +37,10 @@ namespace YangiHayot.Controllers
             }
             
             this.orderDetailService.Update(price, orderDetail, product);
-        
-            Order? order = this.orderService.GetById(orderDetail.OrderId);
 
-            orderService.Update(100, order);
+            Order order = orderDetail.Order;
 
-            decimal totalSum = 0;
-            List<OrderDetail> listOfOrderDetails = orderDetailService.GetOrderDetails(order);
-
-            foreach (OrderDetail orderDetail1 in listOfOrderDetails)
-            {
-                totalSum += orderDetail1.Price;
-            }
-
-            for (int i = 0; i < orderDetailService.GetOrderDetails(order).Count(); i++) 
-            { 
-
-            }
-
-            return Ok();
+            return Ok(orderService.GetTotalSum(order));
         }
     }
 }

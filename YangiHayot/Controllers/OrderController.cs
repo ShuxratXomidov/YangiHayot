@@ -33,37 +33,27 @@ namespace YangiHayot.Controllers
                 return BadRequest($"User is not found with id {request.UserId}");
             }
 
-            decimal totalSum = 0;
-
-
-            for (int i = 0; i < request.ProductIds.Length; i++)
+            foreach (int productId in request.ProductIds)
             {
-                Product? product = this.productService.GetById(request.ProductIds[i]);
-
-                if (product is null)
+                Product? product = this.productService.GetById(productId);
+                if(product is null)
                 {
-                    return BadRequest($"Product is not fount with is {product}");
+                    return BadRequest($"Product is not found with id {productId}!");
                 }
-
-                totalSum = product.Price + totalSum;
             }
 
-            Order order = this.orderService.Create(totalSum, request.UserId);
+            Order order = this.orderService.Create(request.UserId);
 
             foreach (int productId in request.ProductIds)
             {
                 Product? product = this.productService.GetById(productId);
-
-                this.orderDetailService.Create(order, product);
+                this.orderDetailService.Create(order, product);            
             }
-
-            
 
             OrderResponse response = new OrderResponse()
             {
                 Id = order.Id,
                 CreatedAt = order.CreatedAt,
-                Price = order.Price,
                 UserId = order.UserId,
             };
 
@@ -75,7 +65,22 @@ namespace YangiHayot.Controllers
         public IActionResult Index()
         {
             List<Order> orders = this.orderService.GetAll();
-            return Ok(orders);
+
+            List<OrderResponse> response = new List<OrderResponse>();
+            foreach(Order order in orders)
+            {
+                OrderResponse orderResponse = new OrderResponse()
+                {
+                    Id = order.Id,
+                    CreatedAt = order.CreatedAt,
+                    UserId = order.UserId,
+                    TotalSum = orderService.GetTotalSum(order),
+                };
+                
+
+                response.Add(orderResponse);
+            }
+            return Ok(response);
         }
 
         [HttpGet]
@@ -87,23 +92,34 @@ namespace YangiHayot.Controllers
             {
                 return NotFound($"Order is not found with id {id}");
             }
-            return Ok(order);
-        }
 
-        [HttpPut]
-        [Route("{id}")]
-        public IActionResult Update(int id, decimal price)
-        {
-            Order? order = this.orderService.GetById(id);
-            if (order is null)
+            decimal totalSum = orderService.GetTotalSum(order);
+
+            var response = new OrderResponse()
             {
-                return BadRequest($"Order is not found with id {id}");
-            }
-
-           Order newOrder = this.orderService.Update(price, order);
-
-            return Ok(newOrder);
+                Id = order.Id,
+                CreatedAt = order.CreatedAt,
+                UserId = order.UserId,
+                TotalSum = totalSum,
+            };
+           
+            return Ok(response);
         }
+
+        //[HttpPut]
+        //[Route("{id}")]
+        //public IActionResult Update(int id, decimal price)
+        //{
+        //    Order? order = this.orderService.GetById(id);
+        //    if (order is null)
+        //    {
+        //        return BadRequest($"Order is not found with id {id}");
+        //    }
+
+        //   Order newOrder = this.orderService.Update(price, order);
+
+        //    return Ok(newOrder);
+        //}
 
         [HttpDelete]
         [Route("{id}")]

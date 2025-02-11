@@ -1,4 +1,5 @@
-﻿using YangiHayot.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using YangiHayot.Data;
 using YangiHayot.Interfaces;
 using YangiHayot.Models;
 
@@ -30,6 +31,7 @@ namespace YangiHayot.Services
         public void Update(decimal price, OrderDetail orderDetail,Product product)
         {
             orderDetail.Price = price;
+
             if(orderDetail.ProductId != product.Id)
             {
                 orderDetail.Price = product.Price;
@@ -40,7 +42,9 @@ namespace YangiHayot.Services
         }
         public OrderDetail? GetById(int id)
         {
-            return dbContext.OrderDetails.FirstOrDefault(od => od.Id == id);
+            return dbContext.OrderDetails
+                .Include(od => od.Order)
+                .FirstOrDefault(od => od.Id == id);
         }
     }
 }

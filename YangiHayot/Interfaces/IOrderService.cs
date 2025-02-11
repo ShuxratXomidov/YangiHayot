@@ -6,8 +6,9 @@ namespace YangiHayot.Interfaces
     {
        public List<Order> GetAll();
        public Order? GetById(int id);
-       public Order Create(decimal price, int userId);
-       public Order Update(decimal price, Order order);
+       public Order Create(int userId);
        public void Delete(Order order);
+       public decimal GetTotalSum(Order order);
+
     }
 }

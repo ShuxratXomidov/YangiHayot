@@ -1,4 +1,5 @@
-﻿using YangiHayot.Data;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using YangiHayot.Data;
 using YangiHayot.Interfaces;
 using YangiHayot.Models;
 
@@ -11,11 +12,10 @@ namespace YangiHayot.Services
         {
            this.dbContext = dataContext;
         }
-        public Order Create(decimal price, int userId)
+        public Order Create(int userId)
         {
             Order order = new Order()
             {
-                Price = price,
                 UserId = userId
             };
 
@@ -32,17 +32,25 @@ namespace YangiHayot.Services
         {
             return dbContext.Orders.FirstOrDefault(order => order.Id == id);
         }
-        public Order Update(decimal price, Order order)
-        {
-                order.Price = price;
-                dbContext.SaveChanges();
-
-                return order;
-        }
         public void Delete(Order order)
         {
             dbContext.Orders.Remove(order);
             dbContext.SaveChanges();
+        }
+        public decimal GetTotalSum(Order order)
+        {
+            //List<OrderDetail> listOfOrderDetails = orderDetailService.GetOrderDetails(order);
+
+            //decimal totalSum = 0;
+
+            //foreach (OrderDetail orderDetail1 in listOfOrderDetails)
+            //{
+            //    totalSum += orderDetail1.Price;
+            //}
+
+            decimal totalSum = dbContext.OrderDetails.Where(OrderDetail => OrderDetail.OrderId == order.Id).Sum(orderDetail => orderDetail.Price);
+
+            return totalSum;
         }
     }
 }
